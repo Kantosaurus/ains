@@ -4,16 +4,28 @@ import MacbookScroll from "./macbook-scroll";
 import { CodeBlock } from "./code-block";
 import dynamic from 'next/dynamic';
 
-const codeContent = `#include <iostream>
-#include <opencv2/opencv.hpp>
+const codeContent = `// Welcome to my portfolio!
+import { Person } from '@/types';
 
-int main() {
-    // Print greeting
-    std::cout << "Hello World! My name is:" << std::endl;
-    std::cout << "Ainsley" << std::endl;
-    
-    return 0;
-}
+const me: Person = {
+  name: 'Your Name',
+  role: 'Full Stack Developer',
+  location: 'Singapore',
+  interests: [
+    'Web Development',
+    'UI/UX Design',
+    'Machine Learning',
+    'Chess'
+  ],
+  skills: {
+    languages: ['TypeScript', 'Python', 'Java'],
+    frontend: ['React', 'Next.js', 'TailwindCSS'],
+    backend: ['Node.js', 'Express', 'PostgreSQL'],
+    tools: ['Git', 'Docker', 'AWS']
+  }
+};
+
+// Let's connect and build something amazing together!
 `;
 
 // Disable SSR for this component
@@ -25,7 +37,7 @@ const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onCom
     
     // Set animation complete after typing animation finishes
     const animationTimer = setTimeout(() => {
-      // Wait 2 seconds after animation completes before scrolling
+      // Wait 1 second after animation completes before scrolling
       const scrollTimer = setTimeout(() => {
         // Scroll to about section after animation completes
         const aboutSection = document.getElementById('about-section');
@@ -36,10 +48,10 @@ const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onCom
         if (onComplete) {
           onComplete();
         }
-      }, 2000);
+      }, 1000);
 
       return () => clearTimeout(scrollTimer);
-    }, codeContent.length * 30 + 500); // Add 500ms buffer
+    }, codeContent.length * 20); // Faster typing animation
 
     return () => clearTimeout(animationTimer);
   }, [onComplete]);
@@ -52,17 +64,13 @@ const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onCom
     <div className="overflow-hidden bg-transparent w-full">
       <div className="opacity-100">
         <MacbookScroll
-          badge={
-            <a href="https://peerlist.io/manuarora">
-              <Badge className="h-10 w-10 transform -rotate-12" />
-            </a>
-          }
           showGradient={false}
         >
           <CodeBlock
             code={codeContent}
-            language="cpp"
-            filename="greeting.cpp"
+            language="typescript"
+            filename="portfolio.ts"
+            highlightLines={[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]}
           />
         </MacbookScroll>
       </div>

@@ -96,18 +96,18 @@ const MacbookScroll = (props: MacbookScrollProps) => {
 
   const scaleX = useTransform(
     scrollYProgress,
-    [0, 0.3],
+    [0, 0.2],
     [1.2, isMobile ? 1 : 1.5],
   );
   const scaleY = useTransform(
     scrollYProgress,
-    [0, 0.3],
+    [0, 0.2],
     [0.6, isMobile ? 1 : 1.5],
   );
-  const translate = useTransform(scrollYProgress, [0, 1], [0, 1500]);
-  const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
-  const textTransform = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const translate = useTransform(scrollYProgress, [0, 1], [0, 1000]);
+  const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.2], [-25, -25, 0]);
+  const textTransform = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
   // Initial static render for SSR
   if (!mounted) {
