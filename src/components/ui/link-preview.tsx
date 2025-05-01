@@ -1,8 +1,8 @@
 "use client";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
-
+import Image from "next/image";
 import { encode } from "qss";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -18,8 +18,6 @@ type LinkPreviewProps = {
   className?: string;
   width?: number;
   height?: number;
-  quality?: number;
-  layout?: string;
 } & (
   | { isStatic: true; imageSrc: string }
   | { isStatic?: false; imageSrc?: never }
@@ -31,62 +29,54 @@ export const LinkPreview = ({
   className,
   width = 200,
   height = 125,
-  quality = 50,
-  layout = "fixed",
   isStatic = false,
   imageSrc = "",
 }: LinkPreviewProps) => {
-  let src;
-  if (!isStatic) {
-    const params = encode({
-      url,
-      screenshot: true,
-      meta: false,
-      embed: "screenshot.url",
-      colorScheme: "dark",
-      "viewport.isMobile": true,
-      "viewport.deviceScaleFactor": 1,
-      "viewport.width": width * 3,
-      "viewport.height": height * 3,
-    });
-    src = `https://api.microlink.io/?${params}`;
-  } else {
-    src = imageSrc;
-  }
+  const [src, setSrc] = useState<string>("");
+  const [isOpen, setOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const [isOpen, setOpen] = React.useState(false);
-
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  React.useEffect(() => {
+  useEffect(() => {
+    if (!isStatic) {
+      const params = encode({
+        url,
+        screenshot: true,
+        meta: false,
+        embed: "screenshot.url",
+        colorScheme: "dark",
+        "viewport.isMobile": true,
+        "viewport.deviceScaleFactor": 1,
+        "viewport.width": width * 3,
+        "viewport.height": height * 3,
+      });
+      setSrc(`https://api.microlink.io/?${params}`);
+    } else {
+      setSrc(imageSrc);
+    }
     setIsMounted(true);
-  }, []);
+  }, [url, isStatic, imageSrc, width, height]);
 
   const springConfig = { stiffness: 100, damping: 15 };
   const x = useMotionValue(0);
-
   const translateX = useSpring(x, springConfig);
 
-  const handleMouseMove = (event: any) => {
-    const targetRect = event.target.getBoundingClientRect();
+  const handleMouseMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const targetRect = event.currentTarget.getBoundingClientRect();
     const eventOffsetX = event.clientX - targetRect.left;
-    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2; // Reduce the effect to make it subtle
+    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2;
     x.set(offsetFromCenter);
   };
 
+  if (!isMounted) {
+    return (
+      <a href={url} className={cn("text-black dark:text-white", className)}>
+        {children}
+      </a>
+    );
+  }
+
   return (
     <>
-      {isMounted ? (
-        <div className="hidden">
-          <img
-            src={src}
-            width={width}
-            height={height}
-            alt="hidden image"
-          />
-        </div>
-      ) : null}
-
       <HoverCardPrimitive.Root
         openDelay={50}
         closeDelay={100}
@@ -133,8 +123,8 @@ export const LinkPreview = ({
                   className="block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800"
                   style={{ fontSize: 0 }}
                 >
-                  <img
-                    src={isStatic ? imageSrc : src}
+                  <Image
+                    src={src}
                     width={width}
                     height={height}
                     className="rounded-lg"

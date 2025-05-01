@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import { LinkPreview } from "@/components/ui/link-preview";
 
 export default function LinkPreviewDemo() {

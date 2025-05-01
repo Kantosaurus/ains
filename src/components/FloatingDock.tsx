@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, MotionValue } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface DockItem {
@@ -19,7 +19,7 @@ const IconContainer = ({
   mouseX, 
   item 
 }: { 
-  mouseX: any;
+  mouseX: MotionValue<number>;
   item: DockItem;
 }) => {
   const ref = useRef<HTMLDivElement>(null);

@@ -1,11 +1,21 @@
 "use client";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Lens } from "@/components/ui/lens";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export default function LensDemo() {
   const [hovering, setHovering] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div>
@@ -14,7 +24,7 @@ export default function LensDemo() {
         <Beams />
         <div className="relative z-10">
           <Lens hovering={hovering} setHovering={setHovering}>
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1713869820987-519844949a8a?q=80&w=3500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="image"
               width={500}
@@ -31,7 +41,7 @@ export default function LensDemo() {
             <h2 className="text-white text-2xl text-left font-bold">
               Apple Vision Pro
             </h2>
-            <p className="text-neutral-200 text-left  mt-4">
+            <p className="text-neutral-200 text-left mt-4">
               The all new apple vision pro was the best thing that happened
               around 8 months ago, not anymore.
             </p>
