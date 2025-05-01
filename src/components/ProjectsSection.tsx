@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
+import Image from 'next/image';
 
 interface Project {
   title: string;
@@ -35,9 +36,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
     >
       {project.imageUrl && (
         <div className="mb-4 overflow-hidden rounded-lg">
-          <img 
+          <Image 
             src={project.imageUrl} 
             alt={project.title}
+            width={800}
+            height={400}
             className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
@@ -100,7 +103,7 @@ const ProjectsSection = () => {
             My Projects
           </h2>
           <p className="mx-auto mb-12 max-w-2xl text-neutral-600 dark:text-neutral-400">
-            Here are some of the projects I've worked on. Each one has taught me something new
+            Here are some of the projects I&apos;ve worked on. Each one has taught me something new
             and helped me grow as a developer.
           </p>
         </motion.div>
