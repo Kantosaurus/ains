@@ -2,94 +2,42 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiGithub, FiExternalLink } from 'react-icons/fi';
-import Image from 'next/image';
+import { FocusCards } from './ui/focus-cards';
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-  imageUrl?: string;
-}
-
-const projects: Project[] = [
+const projects = [
   {
-    title: "Portfolio Website",
-    description: "A modern portfolio website built with Next.js, TailwindCSS, and Framer Motion. Features smooth animations and responsive design.",
-    technologies: ["Next.js", "React", "TailwindCSS", "Framer Motion"],
-    githubUrl: "https://github.com/yourusername/portfolio",
-    liveUrl: "https://yourwebsite.com"
+    title: "Forest Adventure",
+    src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
-  // Add more projects here
+  {
+    title: "Valley of life",
+    src: "https://images.unsplash.com/photo-1600271772470-bd22a42787b3?q=80&w=3072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "Sala behta hi jayega",
+    src: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?q=80&w=3070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "Camping is for pros",
+    src: "https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "The road not taken",
+    src: "https://images.unsplash.com/photo-1507041957456-9c397ce39c97?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "The First Rule",
+    src: "https://assets.aceternity.com/the-first-rule.png",
+  },
 ];
 
-const ProjectCard = ({ project }: { project: Project }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-      className="group relative rounded-xl bg-neutral-50 p-6 shadow-md transition-all hover:shadow-xl dark:bg-neutral-800/50"
-    >
-      {project.imageUrl && (
-        <div className="mb-4 overflow-hidden rounded-lg">
-          <Image 
-            src={project.imageUrl} 
-            alt={project.title}
-            width={800}
-            height={400}
-            className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-      )}
-      <h3 className="mb-2 text-xl font-semibold text-neutral-800 dark:text-neutral-100">
-        {project.title}
-      </h3>
-      <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
-        {project.description}
-      </p>
-      <div className="mb-4 flex flex-wrap gap-2">
-        {project.technologies.map((tech) => (
-          <span
-            key={tech}
-            className="rounded-full bg-neutral-200 px-3 py-1 text-xs font-medium text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-      <div className="flex gap-4">
-        {project.githubUrl && (
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-700 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200"
-          >
-            <FiGithub size={20} />
-          </a>
-        )}
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-700 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200"
-          >
-            <FiExternalLink size={20} />
-          </a>
-        )}
-      </div>
-    </motion.div>
-  );
-};
+interface ProjectsSectionProps {
+  id?: string;
+}
 
-const ProjectsSection = () => {
+const ProjectsSection = ({ id }: ProjectsSectionProps) => {
   return (
-    <section className="relative w-full bg-white py-20 dark:bg-neutral-900">
+    <section id={id} className="relative w-full bg-white py-20 dark:bg-neutral-900">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -107,11 +55,14 @@ const ProjectsSection = () => {
             and helped me grow as a developer.
           </p>
         </motion.div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <FocusCards cards={projects} />
+        </motion.div>
       </div>
     </section>
   );

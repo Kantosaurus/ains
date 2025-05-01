@@ -4,6 +4,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
 
+interface ContactSectionProps {
+  id?: string;
+}
+
 const socialLinks = [
   {
     name: 'GitHub',
@@ -27,7 +31,7 @@ const socialLinks = [
   },
 ];
 
-const ContactSection = () => {
+const ContactSection = ({ id }: ContactSectionProps) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -48,7 +52,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="relative w-full bg-white py-20 dark:bg-neutral-900">
+    <section id={id} className="relative w-full bg-white py-20 dark:bg-neutral-900">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div

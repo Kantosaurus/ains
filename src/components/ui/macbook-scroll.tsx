@@ -96,16 +96,24 @@ const MacbookScroll = (props: MacbookScrollProps) => {
 
   const scaleX = useTransform(
     scrollYProgress,
-    [0, 0.2],
-    [1.2, isMobile ? 1 : 1.5],
+    [0, 0.2, 0.3],
+    [1.2, isMobile ? 1 : 1.5, isMobile ? 1 : 1.5]
   );
   const scaleY = useTransform(
     scrollYProgress,
-    [0, 0.2],
-    [0.6, isMobile ? 1 : 1.5],
+    [0, 0.2, 0.3],
+    [0.6, isMobile ? 1 : 1.5, isMobile ? 1 : 1.5]
   );
-  const translate = useTransform(scrollYProgress, [0, 1], [0, 1000]);
-  const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.2], [-25, -25, 0]);
+  const translate = useTransform(
+    scrollYProgress,
+    [0, 0.2, 1],
+    [0, 0, 0]
+  );
+  const rotate = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.25],
+    [-25, 0, 0]
+  );
   const textTransform = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
@@ -238,7 +246,7 @@ export const Lid = ({
           style={{
             boxShadow: "0px 2px 0px 2px #171717 inset",
           }}
-          className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
+          className="absolute inset-0 flex items-center justify-center rounded-lg bg-slate-900"
         >
           <span className="text-white">
             <AceternityLogo />
@@ -254,9 +262,9 @@ export const Lid = ({
           transformStyle: "preserve-3d",
           transformOrigin: "top",
         }}
-        className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2"
+        className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-slate-900 p-2"
       >
-        <div className="absolute inset-0 rounded-lg bg-[#272729]" />
+        <div className="absolute inset-0 rounded-lg bg-slate-900" />
         {children ? (
           <div className="absolute inset-0 h-full w-full rounded-lg overflow-hidden">
             {children}

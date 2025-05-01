@@ -97,10 +97,10 @@ export const CodeBlock = ({
     : highlightLines;
 
   return (
-    <div className="relative w-full rounded-lg bg-[#272729] p-4 font-mono text-sm">
+    <div className="relative w-full rounded-lg bg-slate-900 p-4 font-mono text-sm">
       <div className="flex flex-col gap-2">
         {tabsExist && (
-          <div className="flex overflow-x-auto bg-[#272729]">
+          <div className="flex overflow-x-auto">
             {tabs.map((tab, index) => (
               <button
                 key={index}
@@ -128,24 +128,24 @@ export const CodeBlock = ({
           </div>
         )}
       </div>
-      <div ref={codeRef} className="bg-[#272729]">
+      <div ref={codeRef} className="bg-transparent">
         <SyntaxHighlighter
           language={activeLanguage}
           style={{
             ...atomDark,
             'pre[class*="language-"]': {
               ...atomDark['pre[class*="language-"]'],
-              background: '#272729',
+              background: 'transparent',
             },
             'code[class*="language-"]': {
               ...atomDark['code[class*="language-"]'],
-              background: '#272729',
+              background: 'transparent',
             },
           }}
           customStyle={{
             margin: 0,
             padding: 0,
-            background: "#272729",
+            background: "transparent",
             fontSize: "0.875rem",
           }}
           wrapLines={true}
@@ -153,7 +153,7 @@ export const CodeBlock = ({
           lineProps={(lineNumber) => ({
             style: {
               backgroundColor: activeHighlightLines.includes(lineNumber)
-                ? "rgba(255,255,255,0.1)"
+                ? "transparent"
                 : "transparent",
               display: "block",
               width: "100%",
