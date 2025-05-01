@@ -1,2 +1,0 @@
-# ains
-My Portfolio Website
