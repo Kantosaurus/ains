@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     domains: ['localhost'],
     formats: ['image/avif', 'image/webp'],
@@ -8,6 +7,6 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   output: 'standalone',
-};
+}
 
-export default nextConfig;
+module.exports = nextConfig 

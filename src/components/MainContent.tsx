@@ -1,8 +1,9 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect } from 'react';
-import MacbookScrollDemo from '@/components/ui/macbook-scroll-demo';
-import AboutSection from '@/components/AboutSection';
+import MacbookScrollDemo from './ui/macbook-scroll-demo';
+import AboutSection from './AboutSection';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function MainContent() {
@@ -54,7 +55,7 @@ export default function MainContent() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="min-h-screen w-full bg-gradient-to-b from-black to-gray-900 text-white py-20"
+            className="min-h-screen w-full bg-white text-black py-20"
           >
             <AboutSection />
           </motion.section>

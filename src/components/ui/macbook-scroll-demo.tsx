@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import MacbookScroll from "@/components/ui/macbook-scroll";
-import { CodeBlock } from "@/components/ui/code-block";
+import MacbookScroll from "./macbook-scroll";
+import { CodeBlock } from "./code-block";
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 

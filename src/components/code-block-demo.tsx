@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBlock } from "./ui/code-block";
 
 export default function CodeBlockDemo() {
   const code = `const DummyComponent = () => {
