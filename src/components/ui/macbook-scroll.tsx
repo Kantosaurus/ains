@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MotionValue, motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "../../lib/utils";
 import {
@@ -24,6 +24,7 @@ import { IconCommand } from "@tabler/icons-react";
 import { IconCaretLeftFilled } from "@tabler/icons-react";
 import { IconCaretDownFilled } from "@tabler/icons-react";
 import { CodeBlock } from "./code-block";
+import Image from "next/image";
 
 type BaseProps = {
   src?: string;
@@ -261,10 +262,12 @@ export const Lid = ({
             {children}
           </div>
         ) : (
-          <img
+          <Image
             src={src as string}
             alt="aceternity logo"
-            className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
+            fill
+            className="rounded-lg object-cover object-left-top"
+            priority
           />
         )}
       </motion.div>
