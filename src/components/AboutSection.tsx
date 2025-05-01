@@ -6,7 +6,7 @@ import { FlipWords } from './ui/flip-words';
 import { Timeline } from './ui/timeline';
 
 const AboutSection = () => {
-  const roles = ["SUTDent", "Athlete", "Coder", "Chess Player", "Designer"];
+  const roles = ["SUTDent", "Athlete", "Coder", "Chess Player", "Designer", "Leader"];
 
   const timelineData = [
     {
