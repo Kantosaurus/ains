@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import MacbookScroll from "./macbook-scroll";
 import { CodeBlock } from "./code-block";
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 
 const codeContent = `#include <iostream>
 #include <opencv2/opencv.hpp>
@@ -19,13 +18,13 @@ int main() {
 
 // Disable SSR for this component
 const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onComplete?: () => void }) => {
-  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     // Set animation complete after typing animation finishes
     const animationTimer = setTimeout(() => {
-      setIsAnimationComplete(true);
-      
       // Wait 2 seconds after animation completes before scrolling
       const scrollTimer = setTimeout(() => {
         // Scroll to about section after animation completes
@@ -44,6 +43,10 @@ const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onCom
 
     return () => clearTimeout(animationTimer);
   }, [onComplete]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="overflow-hidden bg-transparent w-full">
@@ -65,7 +68,14 @@ const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onCom
       </div>
     </div>
   );
-}), { ssr: false });
+}), { 
+  ssr: false,
+  loading: () => (
+    <div className="overflow-hidden bg-transparent w-full h-[500px] flex items-center justify-center">
+      <div className="animate-pulse text-neutral-400">Loading...</div>
+    </div>
+  )
+});
 
 // Peerlist logo
 const Badge = ({ className }: { className?: string }) => {
