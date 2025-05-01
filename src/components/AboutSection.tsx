@@ -42,7 +42,7 @@ const AboutSection = ({ id }: AboutSectionProps) => {
               className="mt-8 max-w-2xl text-lg text-neutral-600 dark:text-neutral-400"
             >
               A passionate individual who thrives on challenges and continuous learning. 
-              Whether it's coding, sports, or strategic games, I bring dedication and creativity 
+              Whether it&apos;s coding, sports, or strategic games, I bring dedication and creativity 
               to everything I do. My journey is defined by growth, innovation, and the pursuit of excellence.
             </motion.p>
           </div>
