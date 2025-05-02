@@ -77,16 +77,17 @@ export const CodeBlock = ({
       }
     }, { threshold: 0.1 });
 
-    if (codeRef.current) {
-      observer.observe(codeRef.current);
+    const currentCodeRef = codeRef.current;
+    if (currentCodeRef) {
+      observer.observe(currentCodeRef);
     }
 
     return () => {
       if (animationRef.current) {
         window.clearTimeout(animationRef.current);
       }
-      if (codeRef.current) {
-        observer.unobserve(codeRef.current);
+      if (currentCodeRef) {
+        observer.unobserve(currentCodeRef);
       }
     };
   }, [activeCode, isClient]);

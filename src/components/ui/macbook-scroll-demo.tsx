@@ -5,32 +5,23 @@ import { CodeBlock } from "./code-block";
 import dynamic from 'next/dynamic';
 import { motion } from "framer-motion";
 
-const codeContent = `// Welcome to my portfolio!
-import { Person } from '@/types';
-
-const me: Person = {
-  name: 'Your Name',
+const codeContent = `// Welcome to my digital space
+const portfolio = {
+  name: 'Ainsley Woo',
   role: 'Full Stack Developer',
-  location: 'Singapore',
-  interests: [
-    'Web Development',
-    'UI/UX Design',
-    'Machine Learning',
-    'Chess'
-  ],
-  skills: {
-    languages: ['TypeScript', 'Python', 'Java'],
-    frontend: ['React', 'Next.js', 'TailwindCSS'],
-    backend: ['Node.js', 'Express', 'PostgreSQL'],
-    tools: ['Git', 'Docker', 'AWS']
-  }
+  passion: 'Building beautiful digital experiences',
+  skills: [
+    'React', 'Next.js', 'TypeScript',
+    'Node.js', 'Python',
+    'TailwindCSS', 'Java', 'JavaScript',
+  ]
 };
 
-// Let's connect and build something amazing together!
+// Let's create something amazing together!
 `;
 
 // Disable SSR for this component
-const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onComplete?: () => void }) => {
+const MacbookScrollDemo = dynamic(() => Promise.resolve(() => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
