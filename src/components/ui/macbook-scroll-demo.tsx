@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import MacbookScroll from "./macbook-scroll";
 import { CodeBlock } from "./code-block";
 import dynamic from 'next/dynamic';
+import { motion } from "framer-motion";
 
 const codeContent = `// Welcome to my portfolio!
 import { Person } from '@/types';
@@ -34,27 +35,7 @@ const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onCom
 
   useEffect(() => {
     setMounted(true);
-    
-    // Set animation complete after typing animation finishes
-    const animationTimer = setTimeout(() => {
-      // Wait 1 second after animation completes before scrolling
-      const scrollTimer = setTimeout(() => {
-        // Scroll to about section after animation completes
-        const aboutSection = document.getElementById('about-section');
-        if (aboutSection) {
-          aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        // Call onComplete callback
-        if (onComplete) {
-          onComplete();
-        }
-      }, 1000);
-
-      return () => clearTimeout(scrollTimer);
-    }, codeContent.length * 20); // Faster typing animation
-
-    return () => clearTimeout(animationTimer);
-  }, [onComplete]);
+  }, []);
 
   if (!mounted) {
     return null;
@@ -66,12 +47,19 @@ const MacbookScrollDemo = dynamic(() => Promise.resolve(({ onComplete }: { onCom
         <MacbookScroll
           showGradient={false}
         >
-          <CodeBlock
-            code={codeContent}
-            language="typescript"
-            filename="portfolio.ts"
-            highlightLines={[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]}
-          />
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <CodeBlock
+              code={codeContent}
+              language="typescript"
+              filename="portfolio.ts"
+              highlightLines={[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]}
+            />
+          </motion.div>
         </MacbookScroll>
       </div>
     </div>

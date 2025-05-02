@@ -1,6 +1,5 @@
 import React from 'react';
 import HeroSection from '../components/HeroSection';
-import AboutSection from '../components/AboutSection';
 import TimelineSection from '../components/TimelineSection';
 import ProjectsSection from '../components/ProjectsSection';
 import ResumeSection from '../components/ResumeSection';
@@ -17,9 +16,9 @@ export default function Home() {
       href: '#hero'
     },
     {
-      name: 'About',
+      name: 'Timeline',
       icon: <IconUser className="w-6 h-6 text-white" strokeWidth={1.5} />,
-      href: '#about'
+      href: '#timeline'
     },
     {
       name: 'Projects',
@@ -36,7 +35,6 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       <HeroSection id="hero" />
-      <AboutSection id="about" />
       <TimelineSection id="timeline" />
       <ProjectsSection id="projects" />
       <ResumeSection />

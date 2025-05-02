@@ -11,13 +11,13 @@ interface HeroSectionProps {
 
 const heroCode = `// Welcome to my digital space
 const portfolio = {
-  name: 'Your Name',
+  name: 'Ainsley Woo',
   role: 'Full Stack Developer',
   passion: 'Building beautiful digital experiences',
   skills: [
     'React', 'Next.js', 'TypeScript',
-    'Node.js', 'Python', 'AWS',
-    'TailwindCSS', 'PostgreSQL', 'Docker'
+    'Node.js', 'Python',
+    'TailwindCSS', 'Java', 'JavaScript',
   ]
 };
 

@@ -59,23 +59,34 @@ export const CodeBlock = ({
   useEffect(() => {
     if (!isClient) return;
 
-    let currentIndex = 0;
-    const typingSpeed = 30; // milliseconds per character
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        let currentIndex = 0;
+        const typingSpeed = 30; // milliseconds per character
 
-    const typeNextChar = () => {
-      if (currentIndex < fullCodeRef.current.length) {
-        setVisibleCode(fullCodeRef.current.slice(0, currentIndex + 1));
-        currentIndex++;
-        animationRef.current = window.setTimeout(typeNextChar, typingSpeed);
+        const typeNextChar = () => {
+          if (currentIndex < fullCodeRef.current.length) {
+            setVisibleCode(fullCodeRef.current.slice(0, currentIndex + 1));
+            currentIndex++;
+            animationRef.current = window.setTimeout(typeNextChar, typingSpeed);
+          }
+        };
+
+        // Start typing animation
+        typeNextChar();
       }
-    };
+    }, { threshold: 0.1 });
 
-    // Start typing animation
-    typeNextChar();
+    if (codeRef.current) {
+      observer.observe(codeRef.current);
+    }
 
     return () => {
       if (animationRef.current) {
         window.clearTimeout(animationRef.current);
+      }
+      if (codeRef.current) {
+        observer.unobserve(codeRef.current);
       }
     };
   }, [activeCode, isClient]);
