@@ -33,9 +33,10 @@ const projects = [
 
 interface ProjectsSectionProps {
   id?: string;
+  onAnimationComplete?: () => void;
 }
 
-const ProjectsSection = ({ id }: ProjectsSectionProps) => {
+const ProjectsSection = ({ id, onAnimationComplete }: ProjectsSectionProps) => {
   return (
     <section id={id} className="relative w-full bg-white py-20 dark:bg-neutral-900">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
@@ -60,6 +61,7 @@ const ProjectsSection = ({ id }: ProjectsSectionProps) => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
+          onAnimationComplete={onAnimationComplete}
         >
           <FocusCards cards={projects} />
         </motion.div>

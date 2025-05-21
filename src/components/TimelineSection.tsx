@@ -11,21 +11,11 @@ interface TimelineSectionProps {
 const TimelineSection = ({ id }: TimelineSectionProps) => {
   const timelineData = [
     {
-      title: "2024",
+      title: "2021",
       content: (
         <div>
           <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
-            Started my journey in web development and design
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2023",
-      content: (
-        <div>
-          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
-            Participated in various coding competitions and hackathons
+            🎓 Graduated from Dunman High School
           </p>
         </div>
       ),
@@ -33,9 +23,54 @@ const TimelineSection = ({ id }: TimelineSectionProps) => {
     {
       title: "2022",
       content: (
-        <div>
+        <div className="space-y-2">
           <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
-            Began learning programming and web development
+            💻 Started learning Python during National Service
+          </p>
+          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            🔒 Enlisted as a Military Policeman — trained in threat assessment, protocol adherence, and information security
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "2023",
+      content: (
+        <div className="space-y-2">
+          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            🏫 Matriculated into Singapore University of Technology and Design (SUTD)
+          </p>
+          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            🧠 Self-studied advanced topics and participated in CTFs and cybersecurity-related challenges
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "2024",
+      content: (
+        <div className="space-y-2">
+          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            👑 Became President of SUTD Chess Club and Ultimate Frisbee Club
+          </p>
+          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            💼 Started working on projects such as the Games of Histories Web App and Wandr Android App (with Singtel)
+          </p>
+          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            📚 Appointed as Class Cohort Advisor and Tutor Assistant
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "2025",
+      content: (
+        <div className="space-y-2">
+          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            🏉 Appointed Sports Representative
+          </p>
+          <p className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            🔐 Continued specialization in Cybersecurity
           </p>
         </div>
       ),

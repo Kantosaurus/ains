@@ -4,7 +4,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiDownload } from 'react-icons/fi';
 
-const ResumeSection = () => {
+interface ResumeSectionProps {
+  onAnimationComplete?: () => void;
+}
+
+const ResumeSection = ({ onAnimationComplete }: ResumeSectionProps) => {
   return (
     <section className="relative w-full bg-neutral-50 py-20 dark:bg-neutral-900/50">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
@@ -14,6 +18,7 @@ const ResumeSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
+          onAnimationComplete={onAnimationComplete}
           className="text-center"
         >
           <h2 className="mb-4 text-3xl font-bold text-neutral-800 dark:text-neutral-200 sm:text-4xl">

@@ -7,13 +7,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface HeroSectionProps {
   id?: string;
+  onAnimationComplete?: () => void;
 }
 
 const heroCode = `// Welcome to my digital space
 const portfolio = {
   name: 'Ainsley Woo',
-  role: 'Full Stack Developer',
-  passion: 'Building beautiful digital experiences',
+  role: 'Student',
+  passion: 'Hunting for bugs',
   skills: [
     'React', 'Next.js', 'TypeScript',
     'Node.js', 'Python',
@@ -24,7 +25,7 @@ const portfolio = {
 // Let's create something amazing together!
 `;
 
-export default function HeroSection({ id }: HeroSectionProps) {
+export default function HeroSection({ id, onAnimationComplete }: HeroSectionProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -42,6 +43,7 @@ export default function HeroSection({ id }: HeroSectionProps) {
         <motion.div 
           className="relative h-full w-full flex flex-col items-center justify-center max-w-7xl mx-auto px-4"
           style={{ opacity }}
+          onAnimationComplete={onAnimationComplete}
         >
           {/* MacBook container */}
           <div className="w-full max-w-5xl">
@@ -50,7 +52,7 @@ export default function HeroSection({ id }: HeroSectionProps) {
                 code={heroCode}
                 language="typescript"
                 filename="portfolio.ts"
-                highlightLines={[2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                highlightLines={[]}
               />
             </MacbookScroll>
           </div>

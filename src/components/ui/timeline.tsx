@@ -27,11 +27,20 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   ];
 
   useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
+    if (!ref.current) return;
+    const node = ref.current;
+    const updateHeight = () => {
+      setHeight(node.getBoundingClientRect().height);
+    };
+    updateHeight(); // Initial set
+    const resizeObserver = new window.ResizeObserver(() => {
+      updateHeight();
+    });
+    resizeObserver.observe(node);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [data]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
