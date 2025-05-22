@@ -1,33 +1,78 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FocusCards } from './ui/focus-cards';
+import Image from "next/image";
+import { BentoGrid, BentoGridItem } from './ui/bento-grid';
+import { cn } from "@/lib/utils";
+import { 
+  IconScale, 
+  IconDeviceTv, 
+  IconBrandYoutube, 
+  IconMapPinFilled,
+  IconCat,
+  IconHeartbeat,
+  IconHistory 
+} from '@tabler/icons-react';
 
-const projects = [
+// Define project type
+interface Project {
+  title: string;
+  description: string;
+  src: string;
+  icon: React.ReactNode;
+  span?: boolean;  // Whether it should span 2 columns
+  rowSpan?: boolean; // Whether it should span 2 rows
+}
+
+// New project list
+const projects: Project[] = [
   {
-    title: "Forest Adventure",
-    src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Balance my life",
+    description: "Personal finance and life management application",
+    src: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2011&q=80",
+    icon: <IconScale className="h-5 w-5 text-neutral-500" />,
+    span: true,
+    rowSpan: true,
   },
   {
-    title: "Valley of life",
-    src: "https://images.unsplash.com/photo-1600271772470-bd22a42787b3?q=80&w=3072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "MIRARI",
+    description: "Virtual reality experience platform",
+    src: "https://images.unsplash.com/photo-1626379953824-12051c1b431f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    icon: <IconDeviceTv className="h-5 w-5 text-neutral-500" />,
   },
   {
-    title: "Sala behta hi jayega",
-    src: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?q=80&w=3070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "YouTwitFace Algorithms",
+    description: "Social media algorithm optimization toolkit",
+    src: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
+    icon: <IconBrandYoutube className="h-5 w-5 text-neutral-500" />,
+    span: true,
   },
   {
-    title: "Camping is for pros",
-    src: "https://images.unsplash.com/photo-1486915309851-b0cc1f8a0084?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "WANDR",
+    description: "Location-based travel companion application",
+    src: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    icon: <IconMapPinFilled className="h-5 w-5 text-neutral-500" />,
+    rowSpan: true,
   },
   {
-    title: "The road not taken",
-    src: "https://images.unsplash.com/photo-1507041957456-9c397ce39c97?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Catbinet",
+    description: "Cat furniture design and visualization app",
+    src: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2043&q=80",
+    icon: <IconCat className="h-5 w-5 text-neutral-500" />,
   },
   {
-    title: "The First Rule",
-    src: "https://assets.aceternity.com/the-first-rule.png",
+    title: "Healthack 2024",
+    description: "Healthcare innovation hackathon project",
+    src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    icon: <IconHeartbeat className="h-5 w-5 text-neutral-500" />,
+    span: true,
+  },
+  {
+    title: "Games of Histories",
+    description: "Interactive historical education web application",
+    src: "https://images.unsplash.com/photo-1608729864927-d2224f5529a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    icon: <IconHistory className="h-5 w-5 text-neutral-500" />,
   },
 ];
 
@@ -36,7 +81,65 @@ interface ProjectsSectionProps {
   onAnimationComplete?: () => void;
 }
 
+// Project Card component with hover effect
+const ProjectCard = ({
+  project,
+  index,
+  hovered,
+  setHovered,
+}: {
+  project: Project;
+  index: number;
+  hovered: number | null;
+  setHovered: React.Dispatch<React.SetStateAction<number | null>>;
+}) => {
+  return (
+    <div
+      onMouseEnter={() => setHovered(index)}
+      onMouseLeave={() => setHovered(null)}
+      className={cn(
+        hovered !== null && hovered !== index && "blur-sm scale-[0.98]",
+        "transition-all duration-300 ease-out h-full"
+      )}
+    >
+      <BentoGridItem
+        title={project.title}
+        description={project.description}
+        icon={project.icon}
+        className={cn(
+          project.span ? "md:col-span-2" : "",
+          project.rowSpan ? "md:row-span-2" : ""
+        )}
+        header={
+          <div className={cn(
+            "relative w-full overflow-hidden rounded-lg",
+            project.rowSpan ? "h-52" : "h-32"
+          )}>
+            <Image
+              src={project.src}
+              alt={project.title}
+              fill
+              className={cn(
+                "object-cover transition-all duration-300",
+                hovered === index ? "scale-105" : "scale-100"
+              )}
+            />
+            <div
+              className={cn(
+                "absolute inset-0 bg-black/30 transition-opacity duration-300",
+                hovered === index ? "opacity-0" : "opacity-50"
+              )}
+            />
+          </div>
+        }
+      />
+    </div>
+  );
+};
+
 const ProjectsSection = ({ id, onAnimationComplete }: ProjectsSectionProps) => {
+  const [hovered, setHovered] = useState<number | null>(null);
+
   return (
     <section id={id} className="relative w-full bg-white py-20 dark:bg-neutral-900">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
@@ -63,7 +166,17 @@ const ProjectsSection = ({ id, onAnimationComplete }: ProjectsSectionProps) => {
           viewport={{ once: true }}
           onAnimationComplete={onAnimationComplete}
         >
-          <FocusCards cards={projects} />
+          <BentoGrid>
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                hovered={hovered}
+                setHovered={setHovered}
+              />
+            ))}
+          </BentoGrid>
         </motion.div>
       </div>
     </section>

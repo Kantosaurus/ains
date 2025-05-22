@@ -57,6 +57,20 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     >
       <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
         <div className="flex flex-col items-start justify-start gap-4">
+          <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 w-full">
+            Hello World! My name is
+            <span
+              className="block font-extrabold text-neutral-900"
+              style={{
+                fontSize: 'clamp(1rem, 40vw, 18rem)',
+                lineHeight: 1.1,
+                letterSpacing: '-0.05em',
+                wordBreak: 'break-word',
+              }}
+            >
+              AINSLEY
+            </span>
+          </h1>
           <div className="flex items-center gap-2">
             <h2 className="text-4xl font-light tracking-tight text-neutral-800 dark:text-neutral-200 sm:text-5xl md:text-6xl">
               I am a
