@@ -1,94 +1,86 @@
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { FiDownload } from 'react-icons/fi';
+import { 
+  Navbar as ResizableNavbar, 
+  NavBody, 
+  NavItems, 
+  MobileNav, 
+  MobileNavHeader, 
+  MobileNavMenu, 
+  MobileNavToggle,
+  NavbarButton
+} from '@/components/ui/resizable-navbar';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Home', link: '/' },
+    { name: 'About', link: '/#about' },
+    { name: 'Projects', link: '/#projects' },
+    { name: 'Resume', link: '/#resume' },
+    { name: 'Contact', link: '/#contact' },
   ];
 
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
-    <nav className="fixed w-full bg-white/80 backdrop-blur-sm z-50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+    <ResizableNavbar>
+      {/* Desktop Navigation */}
+      <NavBody>
+        <Link href="/" className="relative z-20 flex items-center font-medium text-black dark:text-white">
+          <span className="text-xl font-bold">Portfolio</span>
+        </Link>
+        
+        <NavItems items={navItems} />
+        
+        <div className="relative z-20 ml-auto flex items-center gap-2">
+          <NavbarButton 
+            href="/#resume"
+            variant="primary"
           >
-            <Link href="/" className="text-2xl font-bold text-gray-800">
-              Portfolio
-            </Link>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {navItems.map((item) => (
-                <motion.div
-                  key={item.name}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link
-                    href={item.href}
-                    className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    {item.name}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile Navigation Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 hover:text-gray-900"
-            >
-              {isOpen ? (
-                <XMarkIcon className="h-6 w-6" />
-              ) : (
-                <Bars3Icon className="h-6 w-6" />
-              )}
-            </button>
-          </div>
+            <FiDownload className="mr-1 h-4 w-4" />
+            Resume
+          </NavbarButton>
         </div>
-      </div>
+      </NavBody>
 
-      {/* Mobile Navigation Menu */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="md:hidden"
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-      )}
-    </nav>
+      {/* Mobile Navigation */}
+      <MobileNav>
+        <MobileNavHeader>
+          <Link href="/" className="relative z-20 flex items-center font-medium text-black dark:text-white">
+            <span className="text-xl font-bold">Portfolio</span>
+          </Link>
+          
+          <MobileNavToggle isOpen={isOpen} onClick={toggleMenu} />
+        </MobileNavHeader>
+
+        <MobileNavMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          {navItems.map((item, index) => (
+            <Link 
+              href={item.link} 
+              key={index}
+              onClick={() => setIsOpen(false)}
+              className="w-full rounded-md px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-900"
+            >
+              {item.name}
+            </Link>
+          ))}
+          
+          <NavbarButton 
+            href="/#resume"
+            variant="primary"
+            className="mt-2 w-full justify-center"
+          >
+            <FiDownload className="mr-1 h-4 w-4" />
+            Resume
+          </NavbarButton>
+        </MobileNavMenu>
+      </MobileNav>
+    </ResizableNavbar>
   );
 };
 

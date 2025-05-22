@@ -10,7 +10,7 @@ export const BentoGrid = ({
   return (
     <div
       className={cn(
-        "mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-rows-[auto] md:auto-rows-[16rem] md:grid-cols-4",
+        "mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4 md:auto-rows-[220px] grid-flow-dense",
         className,
       )}
     >
@@ -35,17 +35,21 @@ export const BentoGridItem = ({
   return (
     <div
       className={cn(
-        "group/bento shadow-input row-span-1 flex flex-col justify-between space-y-4 rounded-xl border border-neutral-200 bg-white p-4 transition duration-200 hover:shadow-xl dark:border-white/[0.2] dark:bg-black dark:shadow-none",
+        "group/bento relative overflow-hidden rounded-xl transition duration-200 h-full",
         className,
       )}
     >
       {header}
-      <div className="transition duration-200 group-hover/bento:translate-x-2">
-        {icon}
-        <div className="mt-2 mb-2 font-sans font-bold text-neutral-600 dark:text-neutral-200">
-          {title}
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-black/0">
+        <div className="flex items-center space-x-2 mb-2">
+          <div className="p-1 rounded-full bg-white/10 backdrop-blur-md">
+            {icon}
+          </div>
+          <div className="font-sans font-bold text-white">
+            {title}
+          </div>
         </div>
-        <div className="font-sans text-xs font-normal text-neutral-600 dark:text-neutral-300">
+        <div className="font-sans text-xs text-white/80 group-hover/bento:opacity-100 opacity-80">
           {description}
         </div>
       </div>
