@@ -6,6 +6,7 @@ import {
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { FlipWords } from "./flip-words";
+import { MaskContainer } from "./svg-mask-effect";
 
 interface TimelineEntry {
   title: string;
@@ -59,17 +60,33 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         <div className="flex flex-col items-start justify-start gap-4">
           <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 w-full">
             Hello World! My name is
-            <span
-              className="block font-extrabold text-neutral-900"
-              style={{
-                fontSize: 'clamp(1rem, 40vw, 18rem)',
-                lineHeight: 1.1,
-                letterSpacing: '-0.05em',
-                wordBreak: 'break-word',
-              }}
-            >
-              AINSLEY
-            </span>
+            <div className="relative h-[150px] sm:h-[200px] md:h-[250px]">
+              <MaskContainer
+                revealText={
+                  <span
+                    className="font-extrabold text-neutral-900 dark:text-neutral-100"
+                    style={{
+                      fontSize: 'clamp(1rem, 40vw, 18rem)',
+                      lineHeight: 1.1,
+                      letterSpacing: '-0.05em',
+                    }}
+                  >
+                    AINSLEY
+                  </span>
+                }
+                className="h-full w-full rounded-md"
+              >
+                <span className="bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 text-transparent bg-clip-text font-extrabold"
+                  style={{
+                    fontSize: 'clamp(1rem, 40vw, 18rem)',
+                    lineHeight: 1.1,
+                    letterSpacing: '-0.05em',
+                  }}
+                >
+                  AINSLEY
+                </span>
+              </MaskContainer>
+            </div>
           </h1>
           <div className="flex items-center gap-2">
             <h2 className="text-4xl font-light tracking-tight text-neutral-800 dark:text-neutral-200 sm:text-5xl md:text-6xl">

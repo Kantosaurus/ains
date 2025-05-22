@@ -26,6 +26,21 @@ const Navbar = () => {
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  
+  const handleDownloadResume = () => {
+    // URL to your resume file - replace with your actual resume file path
+    const resumeUrl = '/Resume.pdf';
+    
+    // Create a temporary anchor element to trigger the download
+    const a = document.createElement('a');
+    a.href = resumeUrl;
+    a.download = 'Resume.pdf';
+    document.body.appendChild(a);
+    a.click();
+    
+    // Clean up
+    document.body.removeChild(a);
+  };
 
   return (
     <ResizableNavbar>
@@ -39,10 +54,11 @@ const Navbar = () => {
         
         <div className="relative z-20 ml-auto flex items-center gap-2">
           <NavbarButton 
-            href="/#resume"
-            variant="primary"
+            as="button"
+            onClick={handleDownloadResume}
+            variant="gradient"
           >
-            <FiDownload className="mr-1 h-4 w-4" />
+            <FiDownload className="mr-2 h-4 w-4" />
             Resume
           </NavbarButton>
         </div>
@@ -71,11 +87,12 @@ const Navbar = () => {
           ))}
           
           <NavbarButton 
-            href="/#resume"
-            variant="primary"
+            as="button"
+            onClick={handleDownloadResume}
+            variant="gradient"
             className="mt-2 w-full justify-center"
           >
-            <FiDownload className="mr-1 h-4 w-4" />
+            <FiDownload className="mr-2 h-4 w-4" />
             Resume
           </NavbarButton>
         </MobileNavMenu>

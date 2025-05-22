@@ -39,12 +39,24 @@ const ResumeSection = ({ onAnimationComplete }: ResumeSectionProps) => {
       });
       
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        const errorData = await response.json();
+        console.error('API error response:', errorData);
         throw new Error(errorData.error || 'Failed to generate documents');
+      }
+      
+      const contentType = response.headers.get('Content-Type');
+      if (!contentType || !contentType.includes('application/zip')) {
+        console.error('Invalid content type:', contentType);
+        throw new Error('Invalid response format from server');
       }
       
       // Get the blob from the response
       const blob = await response.blob();
+      
+      // Verify we have valid data
+      if (blob.size === 0) {
+        throw new Error('Empty file received from server');
+      }
       
       // Create a URL for the blob
       const url = window.URL.createObjectURL(blob);
