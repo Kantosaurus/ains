@@ -5,7 +5,6 @@ import ProjectsSection from '../components/ProjectsSection';
 import ResumeSection from '../components/ResumeSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
-import { IconHome, IconUser, IconBriefcase, IconMail } from '@tabler/icons-react';
 
 export default function Home() {
   return (
