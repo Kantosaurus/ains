@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { useMotionValue, motion, useMotionTemplate } from "framer-motion";
-import React from "react";
+import { useMotionValue, motion, useMotionTemplate, useInView } from "framer-motion";
+import React, { useRef } from "react";
 
 export const HeroHighlight = ({
   children,
@@ -14,6 +14,8 @@ export const HeroHighlight = ({
 }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   // SVG patterns for different states and themes
   const dotPatterns = {
@@ -38,10 +40,12 @@ export const HeroHighlight = ({
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
   }
+
   return (
     <div
+      ref={ref}
       className={cn(
-        "group relative flex h-[40rem] w-full items-center justify-center bg-white dark:bg-black",
+        "group relative flex w-full items-center justify-center bg-transparent",
         containerClassName,
       )}
       onMouseMove={handleMouseMove}
@@ -50,16 +54,23 @@ export const HeroHighlight = ({
         className="pointer-events-none absolute inset-0 dark:hidden"
         style={{
           backgroundImage: dotPatterns.light.default,
+          opacity: isInView ? 1 : 0,
+          transition: "opacity 0.5s ease-in-out",
         }}
       />
       <div
         className="pointer-events-none absolute inset-0 hidden dark:block"
         style={{
           backgroundImage: dotPatterns.dark.default,
+          opacity: isInView ? 1 : 0,
+          transition: "opacity 0.5s ease-in-out",
         }}
       />
       <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 dark:hidden"
+        className="pointer-events-none absolute inset-0 dark:hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
         style={{
           backgroundImage: dotPatterns.light.hover,
           WebkitMaskImage: useMotionTemplate`
@@ -79,7 +90,10 @@ export const HeroHighlight = ({
         }}
       />
       <motion.div
-        className="pointer-events-none absolute inset-0 hidden opacity-0 transition duration-300 group-hover:opacity-100 dark:block"
+        className="pointer-events-none absolute inset-0 hidden dark:block"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
         style={{
           backgroundImage: dotPatterns.dark.hover,
           WebkitMaskImage: useMotionTemplate`
@@ -99,7 +113,14 @@ export const HeroHighlight = ({
         }}
       />
 
-      <div className={cn("relative z-20", className)}>{children}</div>
+      <motion.div 
+        className={cn("relative z-20 w-full", className)}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+        transition={{ duration: 0.5 }}
+      >
+        {children}
+      </motion.div>
     </div>
   );
 };

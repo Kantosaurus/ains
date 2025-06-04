@@ -7,6 +7,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { FlipWords } from "./flip-words";
 import { MaskContainer } from "./svg-mask-effect";
+import { HeroHighlight } from "./hero-highlight";
 
 interface TimelineEntry {
   title: string;
@@ -144,6 +145,36 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             }}
             className="absolute inset-x-0 top-0  w-[2px] bg-gradient-to-t from-purple-500 via-blue-500 to-transparent from-[0%] via-[10%] rounded-full"
           />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+            Major:
+          </h2>
+          <div className="relative h-[100px] sm:h-[120px] md:h-[150px]">
+            <HeroHighlight containerClassName="h-full">
+              <span
+                className="font-extrabold text-neutral-900 dark:text-neutral-100"
+                style={{
+                  fontSize: 'clamp(1rem, 20vw, 9rem)',
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.05em',
+                }}
+              >
+                CYBERSECURITY
+              </span>
+            </HeroHighlight>
+          </div>
+
+          <div className="flex justify-end items-center mt-4">
+            <HeroHighlight containerClassName="py-2 px-4">
+              <span className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                Minor in AI
+              </span>
+            </HeroHighlight>
+          </div>
         </div>
       </div>
     </div>
